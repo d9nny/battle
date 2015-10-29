@@ -2,8 +2,16 @@ require 'spec_helper'
 
 def sigh_in_and_play
 	visit('/')
+	click_button 'Two Player'
 	fill_in(:player_1, with: 'Almighty Tom')
   fill_in(:player_2, with: 'Incredible Yev')
+  click_button 'Submit'
+end
+
+def sigh_in_and_play_singl
+	visit('/')
+	click_button 'One Player'
+	fill_in(:player_1, with: 'Almighty Tom')
   click_button 'Submit'
 end
 

@@ -1,13 +1,10 @@
-<h1>Battle</h1>
-<h2>Sign in to play</h2>
-<form action="/names" method="post">
-	<label for="player_1">
-		Player 1:
-		<input type="text" name="player_1">
-	</label>
-  	<label for="player_2">
-		Player 2:
-		<input type="text" name="player_2">
-	</label>
-  	<input type="submit" value="Submit">
+<h1>Battle</h2>
+
+<h2>Choose a number of players</h2>
+
+<form action='/one_player' method="post">
+  <input type='submit' value='One Player' >
+</form>
+<form action='/two_player' method="post" >
+  <input type='submit' value='Two Player'>
 </form>
