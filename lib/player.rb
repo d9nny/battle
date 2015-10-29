@@ -1,7 +1,6 @@
 class Player
 	attr_reader :name, :hp
 
-  DEFAULT_ATTACK = 10
   DEFAULT_HP = 100
 
 	def initialize(name)
@@ -9,12 +8,13 @@ class Player
     @hp = DEFAULT_HP
 	end
 
-  def attack(player)
-    player.receive_damage
-  end
-
   def receive_damage
-    @hp -= DEFAULT_ATTACK
+    @hp -= randomness
   end
 
+  private
+
+  def randomness
+    Kernel.rand(1..10)
+  end
 end

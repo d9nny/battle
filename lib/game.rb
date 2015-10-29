@@ -24,9 +24,17 @@ class Game
     @players.select { |elem| elem != @current_turn }.first
   end
 
+  def game_over?
+    losing_player.any?
+  end
+
   private
 
   def switch
     @current_turn = opposite_player
+  end
+
+  def losing_player
+    @players.select { |player| player.hp <=0 }
   end
 end

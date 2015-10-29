@@ -5,12 +5,12 @@ feature 'Game over' do
     before do
       sigh_in_and_play
       attack_and_confirm
-      allow(Kernel).to receive(:rand).and_return(60)
+      allow(Kernel).to receive(:rand).and_return(100) 
     end
   
     scenario 'Player 2 loses' do
       click_button('Attack')
-      expect(page).to have_content 'Incredible Yev loses!'
+      expect(page).to have_content 'Almighty Tom loses!'
     end
   end
 end

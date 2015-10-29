@@ -9,12 +9,11 @@ feature 'Hit points' do
 
   scenario 'reduces both players hit points after being attacked' do
     sigh_in_and_play
-    click_button('Attack')
-    click_button('OK')
+    allow(Kernel).to receive(:rand).and_return(10)
+    attack_and_confirm
     expect(page).to have_content 'Incredible Yev: 90HP'
-    click_button('Attack')
-    click_button('OK')
+    allow(Kernel).to receive(:rand).and_return(10)
+    attack_and_confirm
     expect(page).to have_content 'Almighty Tom: 90HP'
   end
-
 end
