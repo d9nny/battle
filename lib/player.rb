@@ -8,13 +8,7 @@ class Player
     @hp = DEFAULT_HP
 	end
 
-  def receive_damage
-    @hp -= randomness
-  end
-
-  private
-
-  def randomness
-    Kernel.rand(1..10)
+  def receive(damage)
+    @hp -= damage
   end
 end

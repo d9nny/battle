@@ -1,7 +1,7 @@
 require 'sinatra/base'
+require_relative './lib/attack'
 require_relative './lib/player'
 require_relative './lib/game'
-
 class Battle < Sinatra::Base
 
   get '/' do
@@ -50,20 +50,56 @@ class Battle < Sinatra::Base
     @game = $game
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
-    @game.attack(@game.opposite_player)
+    attack = Attack.new(@opposite_player, @game)
+    attack.basic
     redirect '/game_over' if @game.game_over?
     erb(:computer_attack)
   end
 
-  get '/attack' do
+  get '/attack_basic' do
     @game = $game
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
-    @game.attack(@game.opposite_player)
-    # redirect '/computer_attack' if @current_turn.name != "Computer"
+    @attack = Attack.new(@opposite_player, @game)
+    @attack.basic
+    redirect '/computer_attack' if @current_turn.name != "Computer"
     redirect '/game_over' if @game.game_over?
     erb(:attack)
   end
+
+  get '/attack_paralyse' do
+    @game = $game
+    @current_turn = @game.current_turn
+    @opposite_player = @game.opposite_player
+    attack = Attack.new(@opposite_player, @game)
+    attack.paralyse
+    redirect '/computer_attack' if @current_turn.name != "Computer"
+    redirect '/game_over' if @game.game_over?
+    erb(:attack)
+  end
+
+  get '/attack_poison' do
+    @game = $game
+    @current_turn = @game.current_turn
+    @opposite_player = @game.opposite_player
+    attack = Attack.new(@opposite_player, @game)
+    attack.poison
+    redirect '/computer_attack' if @current_turn.name != "Computer"
+    redirect '/game_over' if @game.game_over?
+    erb(:attack)
+  end
+
+  get '/attack_sleep' do
+    @game = $game
+    @current_turn = @game.current_turn
+    @opposite_player = @game.opposite_player
+    attack = Attack.new(@opposite_player, @game)
+    attack.sleep
+    redirect '/computer_attack' if @current_turn.name != "Computer"
+    redirect '/game_over' if @game.game_over?
+    erb(:attack)
+  end
+
 
   get '/game_over' do
     @game = $game
