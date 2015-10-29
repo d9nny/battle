@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 feature 'choose number of players' do
-  scenario '2 players' do
-  	clikck_button 'Single Player'
-   	expect(page).to have_content 'Almighty Tom vs. AI'
+  scenario 'Single player' do
+    sigh_in_and_play_single
+   	expect(page).to have_content 'Almighty Tom vs. Computer'
   end
-  scenario 'q players' do
-   	clikck_button 'Multiplayer'
+  scenario 'Multiplayer' do
+    sigh_in_and_play
     expect(page).to have_content 'Almighty Tom vs. Incredible Yev'
   end
 end
