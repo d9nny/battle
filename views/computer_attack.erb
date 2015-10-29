@@ -1,4 +1,4 @@
-<h1>Computer attacks <%=@opposite_player.name%>!</h1>
-<form action='/play'>
+<h1><%=@current_turn.name%> attacks <%=@opposite_player.name%>!</h1>
+<form action='/c_attack'>
   <input type='submit' value='OK'>
 </form>
