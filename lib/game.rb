@@ -35,6 +35,14 @@ class Game
     player.receive_random
   end
 
+  def reduce_sleep_counter(player)
+    player.reduce_sleep_counter
+  end
+
+  def sleeping?(player)
+    player.sleeping?
+  end
+
   def opposite_player
     @players.select { |elem| elem != @current_turn }.first
   end
@@ -54,6 +62,6 @@ class Game
   private
 
   def losing_player
-    @players.select { |player| player.hp <=0 }
-  end
+  @players.select { |player| player.hp <=0 }
+end
 end

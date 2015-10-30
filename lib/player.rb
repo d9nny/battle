@@ -1,5 +1,5 @@
 class Player
-	attr_reader :name, :hp
+	attr_reader :name, :hp, :sleep_counter
 
   DEFAULT_HP = 100
 
@@ -7,10 +7,10 @@ class Player
 		@name = name
     @hp = DEFAULT_HP
     @paralysed = false
-    @sleeping = false
     @poisoned = false
     @attacks = [:basic,:poison,:paralyse,:sleep]
     @die = [1,2,3,4,5,6,7,8]
+    @sleep_counter = 0
 	end
 
    def receive_random
@@ -47,22 +47,24 @@ class Player
   end
 
   def receive_sleep
-    @sleeping = true if @die.sample == 1 
-    receive(random_damage(1..8))
+    @sleep_counter += 1
+  end
+
+  def reduce_sleep_counter
+    @sleep_counter -= 1
   end
 
   def paralysed?
-    @paralysed 
+    @paralysed
   end
 
   def poisoned?
-    @poisoned 
+    @poisoned
   end
 
   def sleeping?
-    @sleeping 
+    @sleep_counter > 0
   end
-
 
   private
   def receive(damage)
@@ -74,9 +76,3 @@ class Player
   end
 end
 
-
-p = Player.new("dan")
-
-p p.receive_basic
-
-p p.hp

@@ -10,7 +10,7 @@ class Battle < Sinatra::Base
   end
 
   get '/' do
-  	erb(:index)
+    erb(:index)
   end
 
   post '/names1' do
@@ -41,7 +41,7 @@ class Battle < Sinatra::Base
   end
 
   post '/two_player' do
-  	erb :two_player
+    erb :two_player
   end
 
   get '/play' do
@@ -59,13 +59,22 @@ class Battle < Sinatra::Base
 
   post '/attack_basic' do
     load_state
+    redirect '/sleeping' if  @game.sleeping?(@current_turn)
     @game.attack_basic(@opposite_player)
     if @game.game_over?
-      redirect '/game_over' 
+      redirect '/game_over'
     else
       redirect'/attack_basic'
     end
   end
+
+  get '/sleeping' do
+    load_state
+    @game.switch_turn
+    @game.reduce_sleep_counter(@current_turn)
+    erb (:sleeping)
+  end
+
 
   get '/attack_basic' do
     load_state
@@ -78,7 +87,7 @@ class Battle < Sinatra::Base
     load_state
     @game.attack_paralyse(@opposite_player)
     if @game.game_over?
-      redirect '/game_over' 
+      redirect '/game_over'
     else
       redirect'/attack_paralyse'
     end
@@ -95,7 +104,7 @@ class Battle < Sinatra::Base
     load_state
     @game.attack_poison(@opposite_player)
     if @game.game_over?
-      redirect '/game_over' 
+      redirect '/game_over'
     else
       redirect'/attack_poison'
     end
@@ -104,15 +113,15 @@ class Battle < Sinatra::Base
   get '/attack_poison' do
     load_state
     @game.switch_turn
-  @attack_type = "poison"
+    @attack_type = "poison"
     erb(:attack)
   end
 
-   post '/attack_sleep' do
+  post '/attack_sleep' do
     load_state
     @game.attack_sleep(@opposite_player)
     if @game.game_over?
-      redirect '/game_over' 
+      redirect '/game_over'
     else
       redirect'/attack_sleep'
     end

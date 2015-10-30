@@ -100,4 +100,16 @@ describe Game do
       one_player_game.attack_random(player_1)
     end
   end
+  describe '#sleeping' do
+    it 'lets us know if the player is sleeping' do
+      allow(player_1).to receive(:sleeping?).and_return(true)
+      expect(game.sleeping?(player_1)).to be true
+    end
+  end
+  describe '#reduce_sleep_counter' do
+    it 'decrements a players sleep counter' do
+      expect(player_1).to receive(:reduce_sleep_counter)
+      game.reduce_sleep_counter(player_1)
+    end
+  end
 end
