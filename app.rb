@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require_relative './lib/attack'
 require_relative './lib/player'
 require_relative './lib/game'
 class Battle < Sinatra::Base
@@ -50,8 +49,7 @@ class Battle < Sinatra::Base
     @game = $game
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
-    attack = Attack.new(@opposite_player, @game)
-    attack.basic
+    @game.attack_basic(@opposite_player)
     redirect '/game_over' if @game.game_over?
     erb(:computer_attack)
   end
@@ -60,8 +58,7 @@ class Battle < Sinatra::Base
     @game = $game
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
-    @attack = Attack.new(@opposite_player, @game)
-    @attack.basic
+    @game.attack_basic(@opposite_player)
     redirect '/computer_attack' if @current_turn.name != "Computer"
     redirect '/game_over' if @game.game_over?
     erb(:attack)
@@ -71,8 +68,7 @@ class Battle < Sinatra::Base
     @game = $game
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
-    attack = Attack.new(@opposite_player, @game)
-    attack.paralyse
+    @game.attack_paralyse(@opposite_player)
     redirect '/computer_attack' if @current_turn.name != "Computer"
     redirect '/game_over' if @game.game_over?
     erb(:attack)
@@ -82,8 +78,7 @@ class Battle < Sinatra::Base
     @game = $game
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
-    attack = Attack.new(@opposite_player, @game)
-    attack.poison
+    @game.attack_poison(@opposite_player)
     redirect '/computer_attack' if @current_turn.name != "Computer"
     redirect '/game_over' if @game.game_over?
     erb(:attack)
@@ -93,8 +88,7 @@ class Battle < Sinatra::Base
     @game = $game
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
-    attack = Attack.new(@opposite_player, @game)
-    attack.sleep
+    @game.attack_sleep(@opposite_player)
     redirect '/computer_attack' if @current_turn.name != "Computer"
     redirect '/game_over' if @game.game_over?
     erb(:attack)

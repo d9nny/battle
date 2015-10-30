@@ -6,3 +6,5 @@ gem 'rspec-sinatra'
 gem 'capybara'
 gem 'shotgun'
 gem 'rspec'
+gem 'guard-rspec'
+

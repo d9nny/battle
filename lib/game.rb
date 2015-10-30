@@ -1,11 +1,10 @@
 class Game
 
-  attr_reader :current_turn, :attack
+  attr_reader :current_turn
 
   def initialize(player_1, player_2)
     @players = [player_1, player_2]
     @current_turn = player_1
-    @attack = attack
   end
 
   def player_1
@@ -14,6 +13,22 @@ class Game
 
   def player_2
     @players.last
+  end
+
+  def attack_basic(player)
+    player.receive_basic
+  end
+
+  def attack_paralyse(player)
+    player.receive_paralyse
+  end
+
+  def attack_sleep(player)
+    player.receive_sleep
+  end
+
+  def attack_poison(player)
+    player.receive_poison
   end
 
   def opposite_player
