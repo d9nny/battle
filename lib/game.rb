@@ -31,6 +31,10 @@ class Game
     player.receive_poison
   end
 
+  def attack_random(player)
+    player.receive_random
+  end
+
   def opposite_player
     @players.select { |elem| elem != @current_turn }.first
   end
@@ -39,8 +43,12 @@ class Game
     losing_player.any?
   end
 
-  def switch
+  def switch_turn
     @current_turn = opposite_player
+  end
+
+  def computer?
+    @current_turn.name == 'Computer'
   end
 
   private

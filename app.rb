@@ -3,6 +3,12 @@ require_relative './lib/player'
 require_relative './lib/game'
 class Battle < Sinatra::Base
 
+  def load_state
+    @game = $game
+    @current_turn = @game.current_turn
+    @opposite_player = @game.opposite_player
+  end
+
   get '/' do
   	erb(:index)
   end
@@ -23,10 +29,10 @@ class Battle < Sinatra::Base
 
   get '/comp' do
     @game = $game
-    if @game.current_turn.name != "Computer"
-      redirect '/play'
-    else
+    if @game.computer?
       redirect '/computer_attack'
+    else
+      redirect '/play'
     end
   end
 
@@ -43,54 +49,79 @@ class Battle < Sinatra::Base
     erb(:play)
   end
 
-
-
   get '/computer_attack' do
-    @game = $game
-    @current_turn = @game.current_turn
-    @opposite_player = @game.opposite_player
-    @game.attack_basic(@opposite_player)
+    load_state
+    @attack_type = @game.attack_random(@opposite_player)
+    @game.switch_turn
     redirect '/game_over' if @game.game_over?
     erb(:computer_attack)
   end
 
-  get '/attack_basic' do
-    @game = $game
-    @current_turn = @game.current_turn
-    @opposite_player = @game.opposite_player
+  post '/attack_basic' do
+    load_state
     @game.attack_basic(@opposite_player)
-    redirect '/computer_attack' if @current_turn.name != "Computer"
-    redirect '/game_over' if @game.game_over?
+    if @game.game_over?
+      redirect '/game_over' 
+    else
+      redirect'/attack_basic'
+    end
+  end
+
+  get '/attack_basic' do
+    load_state
+    @game.switch_turn
+    @attack_type = "basic"
     erb(:attack)
+  end
+
+  post '/attack_paralyse' do
+    load_state
+    @game.attack_paralyse(@opposite_player)
+    if @game.game_over?
+      redirect '/game_over' 
+    else
+      redirect'/attack_paralyse'
+    end
   end
 
   get '/attack_paralyse' do
-    @game = $game
-    @current_turn = @game.current_turn
-    @opposite_player = @game.opposite_player
-    @game.attack_paralyse(@opposite_player)
-    redirect '/computer_attack' if @current_turn.name != "Computer"
-    redirect '/game_over' if @game.game_over?
+    load_state
+    @game.switch_turn
+    @attack_type = "paralyse"
     erb(:attack)
+  end
+
+  post '/attack_poison' do
+    load_state
+    @game.attack_poison(@opposite_player)
+    if @game.game_over?
+      redirect '/game_over' 
+    else
+      redirect'/attack_poison'
+    end
   end
 
   get '/attack_poison' do
-    @game = $game
-    @current_turn = @game.current_turn
-    @opposite_player = @game.opposite_player
-    @game.attack_poison(@opposite_player)
-    redirect '/computer_attack' if @current_turn.name != "Computer"
-    redirect '/game_over' if @game.game_over?
+    load_state
+    @game.switch_turn
+  @attack_type = "poison"
     erb(:attack)
   end
 
-  get '/attack_sleep' do
-    @game = $game
-    @current_turn = @game.current_turn
-    @opposite_player = @game.opposite_player
+   post '/attack_sleep' do
+    load_state
     @game.attack_sleep(@opposite_player)
-    redirect '/computer_attack' if @current_turn.name != "Computer"
-    redirect '/game_over' if @game.game_over?
+    if @game.game_over?
+      redirect '/game_over' 
+    else
+      redirect'/attack_sleep'
+    end
+  end
+
+  get '/attack_sleep' do
+    load_state
+    @game.switch_turn
+    @attack_type = "sleep"
     erb(:attack)
   end
 

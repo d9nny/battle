@@ -2,8 +2,10 @@ require 'game'
 
 describe Game do
   subject(:game) { described_class.new(player_1, player_2) }
+  subject(:finished_game) { described_class.new(loser_player, player_2) }
+  subject(:one_player_game) {described_class.new(player_1, computer)}
   let(:player_1) do
-    double :player_1,
+    double :player,
       receive_basic: nil,
       receive_sleep: nil,
       receive_poison: nil,
@@ -11,16 +13,23 @@ describe Game do
       hp: 100
   end
   let(:player_2) do
-    double :player_1,
+    double :player,
       receive_basic: nil,
       receive_sleep: nil,
       receive_poison: nil,
       receive_sleep: nil,
       hp: 100
   end
-  subject(:finished_game) { described_class.new(loser_player, player_2) }
+  let(:computer) do
+    double :player,
+      name: "Computer",
+      receive_basic: nil,
+      receive_sleep: nil,
+      receive_poison: nil,
+      receive_sleep: nil,
+      hp: 100
+  end
   let(:loser_player) { double :loser_player, hp: 0}
-
 
   describe '#attack_basic' do
     it 'should delegate basic attck to game class' do
@@ -49,7 +58,7 @@ describe Game do
     end
   end
   it 'should switch turns after attacking' do
-    game.switch
+    game.switch_turn
     expect(game.current_turn).to eq player_2
   end
 
@@ -75,6 +84,20 @@ describe Game do
   describe '#opposite_player' do
     it 'has an opposite player as player 2' do
       expect(game.opposite_player).to eq player_2
+    end
+  end
+
+  describe '#computer?' do
+    it 'confirms if a player is the computer' do
+      one_player_game.switch_turn
+      expect(one_player_game.computer?).to be true
+    end
+  end
+
+  describe '#random_attack' do
+    it 'chooses a random attack' do
+      expect(player_1).to receive(:receive_random)
+      one_player_game.attack_random(player_1)
     end
   end
 end
