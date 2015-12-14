@@ -22,12 +22,14 @@ describe Player do
       expect {player.receive_basic}.to change {player.hp}.by -10
     end
   end
+
   describe '#receive_poison' do
     it 'should reduce the players hit points' do
       allow(Kernel).to receive(:rand).and_return(10)
       expect {player.receive_poison}.to change {player.hp}.by -10
     end
   end
+
   describe '#receive_paralyse' do
     it 'should reduce the players hit points' do
       allow(Kernel).to receive(:rand).and_return(10)
@@ -40,13 +42,7 @@ describe Player do
       expect {player.reduce_sleep_counter}.to change {player.sleep_counter}.by -1
     end
   end
-
-  describe '#receive_paralyse' do
-    it 'should paralyse the player' do
-      player.receive_paralyse
-      expect(player.paralysed?).to be true
-    end
-  end
+  
   describe '#receive_sleep' do
     it 'should make a player sleep' do
       player.receive_sleep

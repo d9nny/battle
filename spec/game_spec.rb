@@ -9,7 +9,7 @@ describe Game do
       receive_basic: nil,
       receive_sleep: nil,
       receive_poison: nil,
-      receive_sleep: nil,
+      attack_paralyse: nil,
       hp: 100
   end
   let(:player_2) do
@@ -17,7 +17,7 @@ describe Game do
       receive_basic: nil,
       receive_sleep: nil,
       receive_poison: nil,
-      receive_sleep: nil,
+      attack_paralyse: nil,
       hp: 100
   end
   let(:computer) do
@@ -26,7 +26,7 @@ describe Game do
       receive_basic: nil,
       receive_sleep: nil,
       receive_poison: nil,
-      receive_sleep: nil,
+      attack_paralyse: nil,
       hp: 100
   end
   let(:loser_player) { double :loser_player, hp: 0}
@@ -38,19 +38,20 @@ describe Game do
     end
   end
 
-
   describe '#attack_poison' do
     it 'should delegate poison attack to game class' do
       expect(player_1).to receive(:receive_poison )
       game.attack_poison(player_1)
     end
   end
+
   describe '#attack_sleep' do
     it 'should delegate sleep attack to game class' do
       expect(player_1).to receive(:receive_sleep)
       game.attack_sleep(player_1)
     end
   end
+
   describe '#attack_paralyse' do
     it 'should delegate paralyse attack to game class' do
       expect(player_1).to receive(:receive_paralyse)
@@ -100,12 +101,14 @@ describe Game do
       one_player_game.attack_random(player_1)
     end
   end
+
   describe '#sleeping' do
     it 'lets us know if the player is sleeping' do
       allow(player_1).to receive(:sleeping?).and_return(true)
       expect(game.sleeping?(player_1)).to be true
     end
   end
+
   describe '#reduce_sleep_counter' do
     it 'decrements a players sleep counter' do
       expect(player_1).to receive(:reduce_sleep_counter)

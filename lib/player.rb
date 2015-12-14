@@ -54,14 +54,6 @@ class Player
     @sleep_counter -= 1
   end
 
-  def paralysed?
-    @paralysed
-  end
-
-  def poisoned?
-    @poisoned
-  end
-
   def sleeping?
     @sleep_counter > 0
   end
