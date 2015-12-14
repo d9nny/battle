@@ -41,29 +41,17 @@ describe Player do
     end
   end
 
-  # describe '#receive_paralyse' do
-  #   it 'should paralyse the player' do
-  #     player.receive_paralyse
-  #     expect(player.paralysed?).to be true
-  #   end
-  # end
-  # describe '#receive_sleep' do
-  #   it 'should make a player sleep' do
-  #     player.receive_sleep
-  #     expect(player.sleeping?).to be true
-  #   end
-  # end
-  # describe '#receive_sleep' do
-  #   it 'should make a player sleep' do
-  #     player.receive_poison
-  #     expect(player.poinsoned?).to be true
-  #   end
-  # end
-  # describe '#receive_random' do
-  #   it 'selects a random received attack' do
-  #     allow().to receive(:sample).and_return(:basic)
-  #     expect(player.receive_random).to eq "basic"
-  #   end
-  # end
+  describe '#receive_paralyse' do
+    it 'should paralyse the player' do
+      player.receive_paralyse
+      expect(player.paralysed?).to be true
+    end
+  end
+  describe '#receive_sleep' do
+    it 'should make a player sleep' do
+      player.receive_sleep
+      expect(player.sleeping?).to be true
+    end
+  end
 end
 

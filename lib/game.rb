@@ -27,20 +27,20 @@ class Game
     player.receive_sleep
   end
 
-  def attack_poison(player)
-    player.receive_poison
-  end
-
-  def attack_random(player)
-    player.receive_random
+  def sleeping?(player)
+    player.sleeping?
   end
 
   def reduce_sleep_counter(player)
     player.reduce_sleep_counter
   end
 
-  def sleeping?(player)
-    player.sleeping?
+  def attack_poison(player)
+    player.receive_poison
+  end
+
+  def attack_random(player)
+    player.receive_random
   end
 
   def opposite_player
@@ -62,6 +62,6 @@ class Game
   private
 
   def losing_player
-  @players.select { |player| player.hp <=0 }
-end
+    @players.select { |player| player.hp <=0 }
+  end
 end

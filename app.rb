@@ -1,10 +1,13 @@
 require 'sinatra/base'
 require_relative './lib/player'
 require_relative './lib/game'
+
 class Battle < Sinatra::Base
 
+  enable :sessions
+
   def load_state
-    @game = $game
+    @game = session[:game]
     @current_turn = @game.current_turn
     @opposite_player = @game.opposite_player
   end
@@ -16,19 +19,19 @@ class Battle < Sinatra::Base
   post '/names1' do
     player_1 = Player.new(params[:player_1])
     player_2 = Player.new("Computer")
-    $game = Game.new(player_1, player_2)
+    session[:game] = Game.new(player_1, player_2)
     redirect '/play'
   end
 
   post '/names2' do
     player_1 = Player.new(params[:player_1])
     player_2 = Player.new(params[:player_2])
-    $game = Game.new(player_1, player_2)
+    session[:game] = Game.new(player_1, player_2)
     redirect '/play'
   end
 
   get '/comp' do
-    @game = $game
+    @game = session[:game]
     if @game.computer?
       redirect '/computer_attack'
     else
@@ -45,12 +48,13 @@ class Battle < Sinatra::Base
   end
 
   get '/play' do
-    @game = $game
+    @game = session[:game]
     erb(:play)
   end
 
   get '/computer_attack' do
     load_state
+    redirect '/sleeping' if  @game.sleeping?(@current_turn)
     @attack_type = @game.attack_random(@opposite_player)
     @game.switch_turn
     redirect '/game_over' if @game.game_over?
@@ -85,6 +89,7 @@ class Battle < Sinatra::Base
 
   post '/attack_paralyse' do
     load_state
+    redirect '/sleeping' if  @game.sleeping?(@current_turn)
     @game.attack_paralyse(@opposite_player)
     if @game.game_over?
       redirect '/game_over'
@@ -102,6 +107,7 @@ class Battle < Sinatra::Base
 
   post '/attack_poison' do
     load_state
+    redirect '/sleeping' if  @game.sleeping?(@current_turn)
     @game.attack_poison(@opposite_player)
     if @game.game_over?
       redirect '/game_over'
@@ -119,6 +125,7 @@ class Battle < Sinatra::Base
 
   post '/attack_sleep' do
     load_state
+    redirect '/sleeping' if  @game.sleeping?(@current_turn)
     @game.attack_sleep(@opposite_player)
     if @game.game_over?
       redirect '/game_over'
@@ -136,7 +143,7 @@ class Battle < Sinatra::Base
 
 
   get '/game_over' do
-    @game = $game
+    @game = session[:game]
     erb(:game_over)
   end
 
