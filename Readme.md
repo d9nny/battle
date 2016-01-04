@@ -12,7 +12,7 @@ Run Bundler to install Gems: bundle
 Navigate to the root directory in the terminal and start the server: ruby app.rb
 
 Take a note of the port number and navigate to http://localhost:port_number in your browser.
-
+visit: https://lit-temple-9763.herokuapp.com/
 
 Testing
 
