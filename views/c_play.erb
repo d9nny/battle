@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Battle</title>
+	<link href='/css/application.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div id="container">
+		<img src="http://www.contestofchampions.net/matches/blipvsgleek/blipvsgleek_arena.png">
+		<h1><%= @game.player_1.name %> vs. <%= @game.player_2.name %></h1>
+		<div id="first"><%=@game.player_2.name%>: <%=@game.player_2.hp%>HP</div>
+		<div id="second"><%=@game.player_1.name%>: <%=@game.player_1.hp%>HP</div>
+		<div id="form">
+			<form action='/computer_attack'>
+				<input type='submit' value='Attack'>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

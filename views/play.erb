@@ -1,15 +1,31 @@
-<h1><%= @game.player_1.name %> vs. <%= @game.player_2.name %></h1>
-<div><%=@game.player_2.name%>: <%=@game.player_2.hp%>HP</div>
-<div><%=@game.player_1.name%>: <%=@game.player_1.hp%>HP</div>
-<form action='/attack_basic' method = 'post'>
-  <input type='submit' value='Attack'>
-</form>
-<form action='/attack_paralyse' method = 'post'>
-  <input type='submit' value='Paralyse'>
-</form>
-<form action='/attack_poison' method = 'post'>
-  <input type='submit' value='Poison'>
-</form>
-<form action='/attack_sleep' method = 'post'>
-  <input type='submit' value='Sleep'>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Battle</title>
+	<link href='/css/application.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div id="container">
+		<img src="http://www.contestofchampions.net/matches/blipvsgleek/blipvsgleek_arena.png">
+		<h1><%= @game.player_1.name %> vs. <%= @game.player_2.name %></h1>
+		<div id="first"><%=@game.player_2.hp%>HP</div>
+		<div id="second"><%=@game.player_1.hp%>HP</div>
+		<div id="form">
+		<div id="attacks">
+		<form action='/attack_basic' method = 'post'>
+			<input type='submit' value='Attack'>
+		</form>
+		<form action='/attack_paralyse' method = 'post'>
+			<input type='submit' value='Paralyse'>
+		</form>
+		<form action='/attack_poison' method = 'post'>
+			<input type='submit' value='Poison'>
+		</form>
+		<form action='/attack_sleep' method = 'post'>
+			<input type='submit' value='Sleep'>
+		</form>
+	</div>
+	</div>
+	</div>
+</body>
+</html>

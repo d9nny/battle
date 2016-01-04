@@ -1,0 +1,93 @@
+#container {
+	max-width: 800px;
+	height: 500px;
+	margin: auto;
+	text-align: center;
+	position: relative;
+/*	background-image: url("http://www.contestofchampions.net/matches/blipvsgleek/blipvsgleek_arena.png");
+	background-size: 800px 450px;
+  background-repeat: no-repeat;
+  background-opacity: 0.4;*/
+}
+
+html {
+		font-family: Arial Rounded MT Bold;
+}
+
+h1 {
+	margin: 20px;
+	font-size: 70px;
+}
+
+h2, h3 {
+	font-size: 50px;
+}
+
+#first {
+	position: absolute;
+	right: 200px;
+	font-size: 30px;
+}
+
+#second {
+	position: absolute;
+ 	left: 200px;
+ 	font-size: 30px;
+}
+
+#two-player {
+	max-width: 1000px;
+	margin: auto;
+	text-align: center;
+	position: relative;
+}
+
+input[type="submit"] {
+  padding: 15px 15px;
+  background: #ccc;
+  border: 0 none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 160px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+input[type="text"] {
+  padding: 15px 15px;
+  border: 0 none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 250px;
+  font-size: 20px;
+  font-weight: 900;
+  border-bottom: 1px solid;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  margin-bottom: 50px;
+}
+
+#attacks {
+	position: relative;
+}
+
+#attacks > form {
+  float: right;
+  margin: 10px 20px;
+}
+
+label {
+	font-size: 30px;	
+}
+
+img {
+	max-width: 600px;
+}
+
+#form {
+	margin-top: 155px; 
+}
+
+form {
+	margin-top: 10px;
+}

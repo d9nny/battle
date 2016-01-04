@@ -1,4 +1,16 @@
-<h1><%=@current_turn.name%> performs a <%= @attack_type %> attack on <%=@opposite_player.name%>!</h1>
-<form action='/play'>
-  <input type='submit' value='OK'>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Battle</title>
+	<link href='/css/application.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="container">
+	<img src="http://www.contestofchampions.net/matches/blipvsgleek/blipvsgleek_arena.png">
+	<h1><%=@current_turn.name%> performs a <%= @attack_type %> attack on <%=@opposite_player.name%>!</h1>
+	<form action='/play'>
+		<input type='submit' value='OK'>
+	</form>
+</div>
+</body>
+</html>
